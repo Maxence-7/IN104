@@ -15,6 +15,13 @@ $ sudo apt install libgsl-dev
 $ sudo apt install libsdl2-dev
 ```
 
+## Compilation et exécution
+
+```
+$ chmod +x ./compilation.sh
+$ ./compilation.sh
+```
+
 # Documentation
 
 * [SDL2](https://www.libsdl.org/download-2.0.php) Version 2.0.14

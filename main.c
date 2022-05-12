@@ -20,13 +20,14 @@ int main(int argc, char *argv[]) {
   
     SDL_Color noir = {0, 0, 0, 0};
 
-    if(argc<2) {
+    /*if(argc<2) {
         printf("Merci de saisir un fichier audio");
         return 0;
-    }
+    }*/
     char* audioname = argv[1];
+    audioname="audios/gamme_mono.wav";
     //audioname="audios/Laputa.wav";
-    audioname="audios/vivaldi_spring_mono.wav";
+    //audioname="audios/vivaldi_spring_mono.wav";
     //audioname = strcat("audios/",audioname);
 
     SDL_Window *window = NULL;
@@ -44,7 +45,7 @@ int main(int argc, char *argv[]) {
 
     writeNotesInFile(audioname,fichierTampon);
 
-    playMusic(renderer, touches, fichierTampon, audioname);
+    //playMusic(renderer, touches, fichierTampon, audioname);
 
     remove(fichierTampon);
 
