@@ -26,3 +26,8 @@ $ ./compilation.sh
 
 * [SDL2](https://www.libsdl.org/download-2.0.php) Version 2.0.14
 * [GSL](https://www.gnu.org/software/gsl/) Version 2.6
+
+# Contributeurs
+
+* Sam Gadoin
+* Maxence Leguéry

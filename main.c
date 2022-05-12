@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 
     writeNotesInFile(audioname,fichierTampon);
 
-    //playMusic(renderer, touches, fichierTampon, audioname);
+    playMusic(renderer, touches, fichierTampon, audioname);
 
     remove(fichierTampon);
 

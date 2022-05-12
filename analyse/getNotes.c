@@ -64,8 +64,8 @@ struct listeNotes* getNotes(char* fichieraudio, unsigned int* frequenceData) {
     }
     //printf("%f\n",dataCorrelMax);
 
-    double c1 = 1;
-    double c2 = dataCorrelMax/1.7;
+    double c1 = 0.01;
+    double c2 = dataCorrelMax/2;
     for (int i = 1; i<taille; i++){
         dataCorrel[i] = dataCorrel[i]*sigmoidPerso(dataCorrel[i],c1,c2,dataCorrelMax/1.5);
     }
@@ -83,7 +83,7 @@ struct listeNotes* getNotes(char* fichieraudio, unsigned int* frequenceData) {
 
     for(int i=0;i<taille;i++) {
         note[i-dataProcessed]=data[i];
-        if (data[i]!=0 && i-dataProcessed > 10000) {
+        if (data[i]!=0 && i-dataProcessed > 20000) {
             if (dataCorrel[i]>dataCorrelMax*0.375) {
                 //printf("Nouvelle note %d\n", i);
                 liste=addNotes(note,i-dataProcessed,liste);
