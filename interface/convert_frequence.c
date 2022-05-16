@@ -1,7 +1,9 @@
+/* Maxence Leguéry & Sam Gadoin */
+
 #include <math.h>
 #include <stdio.h>
 
-#define f0 27.5//Définition de la fréquence de la plus basse touche (en Hz)
+#define f0 27.5 //Définition de la fréquence de la plus basse touche (en Hz)
 
 int getPianoKeyNumber(double freq) {
     int n = round(12.0 * (log2(freq*1.0/f0)));

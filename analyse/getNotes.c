@@ -44,6 +44,8 @@ struct listeNotes* getNotes(char* fichieraudio, unsigned int* frequenceData) {
     for (int i=2;i<taille;i+=2) {
         dataCorrel[i]=abs(abs(data[i])-abs(data[i-2]));
     }
+
+    //Test filtrage
     /*float CUTOFF = 10;
     float RC = 1.0/(CUTOFF*2*M_PI);
     float dt = 1.0/taille;
@@ -70,16 +72,19 @@ struct listeNotes* getNotes(char* fichieraudio, unsigned int* frequenceData) {
         dataCorrel[i] = dataCorrel[i]*sigmoidPerso(dataCorrel[i],c1,c2,dataCorrelMax/1.5);
     }
 
+    //Ecriture des données dans un fichier pour visualisation avec Python (plot.py)
     FILE *dat=fopen("dataCorrel.dat","w");
     for (int i=2; i<taille; i+=2) {
         fprintf(dat,"%lf\n", dataCorrel[i]);
     }
     fclose(dat);
 
-    double* note = malloc(taille*sizeof(double)); //la, on est sur
+    double* note = malloc(taille*sizeof(double));
     for (int j=0;j<taille;j++) { note[j]=0; }
     struct listeNotes* liste = malloc(sizeof(struct listeNotes));
     int dataProcessed=0;
+
+    //Décomposition du signal en accords individuels
 
     for(int i=0;i<taille;i++) {
         note[i-dataProcessed]=data[i];
@@ -154,14 +159,3 @@ void writeNotesInFile(char* src,char* dst) {
     freeListe(listeFirst);
     fclose(dat);
 }
-
-/*int main(int argc, char const *argv[]) {
-    //writeNotesInFile("IN104_Hobbit_mono.wav","notes.dat");
-    //writeNotesInFile("gamme_mono.wav","notes.dat");
-    //writeNotesInFile("note_do.wav","notes.dat");
-    //writeNotesInFile("accord_mono.wav","notes.dat");
-    //writeNotesInFile("vivaldi_spring_mono.wav","notes.dat");
-    writeNotesInFile("Laputa.wav","notes.dat");
-    //writeNotesInFile("minecraft_mono.wav","notes.dat");
-    return 0;
-}*/

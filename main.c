@@ -1,10 +1,4 @@
-//gcc interface/clavier.c interface/convert_frequence.c main.c $(sdl2-config --cflags --libs) -lm;
-
-//gcc interface/clavier.c interface/convert_frequence.c interface/audio.c main.c $(sdl2-config --cflags --libs) -lm;
-
-//gcc -Wall -Wfatal-errors -Werror interface/clavier.c interface/convert_frequence.c interface/audio.c analyse/getNotes.c analyse/getFreq.c main.c $(gsl-config --cflags --libs) $(sdl2-config --cflags --libs)  -lm ; ./a.out
-
-
+/* Maxence Leguéry & Sam Gadoin */
 
 #include <stdio.h>
 #include <stdlib.h>

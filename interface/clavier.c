@@ -1,4 +1,4 @@
-//gcc clavier.c $(sdl2-config --cflags --libs) -lm;./a.out
+/* Maxence Leguéry & Sam Gadoin */
 
 #include <SDL2/SDL.h>
 #include <stdio.h>

@@ -101,11 +101,14 @@ double* getData(char* fichieraudio, unsigned long* sizeData, unsigned int* frequ
 int getFreq2(double* data,unsigned int frequency,unsigned int tailleNote) {
 
     int sizeFFT = 4096;
+    //Fenetrage de Hamming
     for (int j=0;j<tailleNote;j++) {
         data[j]=data[j]*(0.54 - 0.56*cos(M_PI*j/tailleNote));
     }
+    //Transformee de Fourier
     gsl_fft_complex_radix2_forward(data, 1, sizeFFT);
 
+    //Recherche de la fréquence maximale
     int indiceMax = 0;
     double amp = pow(REAL(data,0),2) + pow(IMAG(data,0),2);
     for (int i=1; i<sizeFFT/2; i++) {
@@ -129,12 +132,15 @@ double moyenne(double* data,int sizeFFT) {
 int* getFreq(double* data,unsigned int frequency,unsigned int tailleNote, unsigned int* nbFreq) {
 
     int sizeFFT = 4096;
+    //Fenetrage de Hamming
     for (int j=0;j<tailleNote;j++) {
         data[j]=data[j]*(0.54 - 0.46*cos(2*M_PI*j/tailleNote));
     }
+    //Transformee de Fourier
     gsl_fft_complex_radix2_forward(data, 1, sizeFFT);
 
-    int N = 5;
+    //Recherche des fréquences de l'accord
+    int N = 5; // Nombre maximal de note dans l'accord
     int k=0;
     int* tabFreq = malloc(N*sizeof(int));
     double moy = moyenne(data,sizeFFT);
@@ -185,21 +191,3 @@ int* getFreq(double* data,unsigned int frequency,unsigned int tailleNote, unsign
     *nbFreq = k;
     return tabFreq;
 }
-
-/*int main(int argc, char *argv[]) {
-
-    unsigned long taille;
-    unsigned int frequency;
-
-    printf("-----------------------------------------\n");
-    double* data = getData("note_do.wav",&taille,&frequency);
-    int freq = getFreq(data,frequency);
-    printf("Fréquence : %d Hz\n",freq);
-    printf("-----------------------------------------\n");
-    data = getData("note_la_mono.wav",&taille,&frequency);
-    freq = getFreq(data,frequency);
-    printf("Fréquence : %d Hz\n",freq);
-    printf("-----------------------------------------\n");
-
-    return 0;
-}*/
