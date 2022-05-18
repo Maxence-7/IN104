@@ -11,7 +11,8 @@
 #define fichierTampon "notes.dat"
 
 int main(int argc, char *argv[]) {
-  
+    //bonjour test
+    //catapulte
     SDL_Color noir = {0, 0, 0, 0};
 
     /*if(argc<2) {
