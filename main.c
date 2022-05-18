@@ -19,8 +19,8 @@ int main(int argc, char *argv[]) {
         return 0;
     }*/
     char* audioname = argv[1];
-    audioname="audios/gamme_mono.wav";
-    //audioname="audios/Laputa.wav";
+    //audioname="audios/gamme_mono.wav";
+    audioname="audios/Laputa.wav";
     //audioname="audios/vivaldi_spring_mono.wav";
     //audioname = strcat("audios/",audioname);
 
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 
     writeNotesInFile(audioname,fichierTampon);
 
-    playMusic(renderer, touches, fichierTampon, audioname);
+    //playMusic(renderer, touches, fichierTampon, audioname);
 
     remove(fichierTampon);
 
