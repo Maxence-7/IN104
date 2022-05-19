@@ -8,11 +8,14 @@ Projet IN104 en C : transcription de notes de piano
 | ---------- |
 | GSL        |
 | SDL2       |
+| SDL2 - TTF |
 
 * Linux : 
 ```
 $ sudo apt install libgsl-dev
 $ sudo apt install libsdl2-dev
+$ sudo apt install libs
+$ sudo apt install libsdl2-ttf-dev
 ```
 
 ## Compilation et exécution

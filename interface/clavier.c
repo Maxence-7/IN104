@@ -133,12 +133,7 @@ SDL_Rect* initKeyboard(SDL_Renderer *renderer, SDL_Color colorTouch, SDL_Rect *t
     return touches;
 }
 
-int initSDL(SDL_Window **window, SDL_Renderer **renderer) {
-    /* Initialisation, création de la fenêtre et du renderer. */
-    if(0 != SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
-        fprintf(stderr, "Erreur SDL_Init : %s", SDL_GetError());
-        return 1;
-    }
+int initSDLClavier(SDL_Window **window, SDL_Renderer **renderer) {
     *window = SDL_CreateWindow("Transcription des notes de piano", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
     if(NULL == *window) {

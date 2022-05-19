@@ -11,6 +11,6 @@ void resetTouchColor(SDL_Renderer *renderer, SDL_Rect* touches, int n);
 void resetKeyboard(SDL_Renderer *renderer, SDL_Rect* touches);
 void testSetTouchColor(SDL_Renderer *renderer, SDL_Rect* touches);
 SDL_Rect* initKeyboard(SDL_Renderer *renderer, SDL_Color colorTouch, SDL_Rect *touches);
-int initSDL(SDL_Window **window, SDL_Renderer **renderer);
+int initSDLClavier(SDL_Window **window, SDL_Renderer **renderer);
 
 #endif
