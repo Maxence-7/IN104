@@ -18,8 +18,11 @@ int main(int argc, char *argv[]) {
     }
 
     char* audioname = malloc(sizeof(char*));
-
     audioname=initAccueil();
+    
+    if(!strcmp(audioname,".")) {
+          goto Quit2;
+    }
 
     printf("%s",audioname);
 
@@ -56,8 +59,6 @@ int main(int argc, char *argv[]) {
     SDL_Window *window = NULL;
     SDL_Renderer *renderer = NULL;
 
-
-
     int r = initSDLClavier(&window, &renderer);
     
     if(r==1) {
@@ -73,6 +74,8 @@ int main(int argc, char *argv[]) {
 
     playMusic(renderer, touches, fichierTampon, audioname);
 
+    free(touches);
+    
     remove(fichierTampon);
 
 Quit:
@@ -80,7 +83,7 @@ Quit:
         SDL_DestroyRenderer(renderer);
     if(NULL != window)
         SDL_DestroyWindow(window);
+Quit2:
     SDL_Quit();
-    free(touches);
     return 0;
 }
