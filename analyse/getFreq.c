@@ -98,6 +98,7 @@ double* getData(char* fichieraudio, unsigned long* sizeData, unsigned int* frequ
     return data;
 }
 
+// Ancienne fonction déterminant la fréquence de la note
 int getFreq2(double* data,unsigned int frequency,unsigned int tailleNote) {
 
     int sizeFFT = 4096;
@@ -129,6 +130,7 @@ double moyenne(double* data,int sizeFFT) {
     return moy/=(sizeFFT/2);
 }
 
+// Nouvelle fonction déterminant les fréquences de l'accord
 int* getFreq(double* data,unsigned int frequency,unsigned int tailleNote, unsigned int* nbFreq) {
 
     int sizeFFT = 4096;
@@ -139,19 +141,23 @@ int* getFreq(double* data,unsigned int frequency,unsigned int tailleNote, unsign
     //Transformee de Fourier
     gsl_fft_complex_radix2_forward(data, 1, sizeFFT);
 
+    for (int j=0;j<tailleNote/5;j++) {
+        data[j]=data[j]*2*exp(-j/100);
+    }
+
     //Recherche des fréquences de l'accord
-    int N = 5; // Nombre maximal de note dans l'accord
+    int N = 3; // Nombre maximal de note dans l'accord
     int k=0;
     int* tabFreq = malloc(N*sizeof(int));
     double moy = moyenne(data,sizeFFT);
     double moyPrev = moyenne(data,sizeFFT);
     double amp = 1;
     double ampOrigin = 1;
-    while ((ampOrigin-amp)/ampOrigin<0.99 && moyPrev/moy<10 && k<N) {
+    while ((ampOrigin-amp)/ampOrigin<0.995 && moyPrev/moy<15 && k<N) {
 
-        int indiceMax = 0;
-        amp = pow(REAL(data,0),2) + pow(IMAG(data,0),2);
-        for (int i=1; i<sizeFFT/2; i++) {
+        int indiceMax = 1;
+        amp = pow(REAL(data,indiceMax),2) + pow(IMAG(data,indiceMax),2);
+        for (int i=indiceMax; i<sizeFFT/2; i++) {
             if (amp<pow(REAL(data,i),2) + pow(IMAG(data,i),2)) {
                 indiceMax=i;
                 amp=pow(REAL(data,i),2) + pow(IMAG(data,i),2);
@@ -161,13 +167,13 @@ int* getFreq(double* data,unsigned int frequency,unsigned int tailleNote, unsign
         if (k==0) { ampOrigin = amp; }
 
         tabFreq[k] = indiceMax*frequency/sizeFFT;
-        printf("%d %f\n",tabFreq[k], moyPrev/moy);
+        //printf("%d %f\n",tabFreq[k], moyPrev/moy);
 
         int f = tabFreq[k];
         int n = 2;
         while (f<frequency) {
-            int fg = f - (f/pow(2,1/12))/8;
-            int fd = f*(1+pow(2,1/12)/8);
+            int fg = f - (f/pow(2,1/12))/7;
+            int fd = f*(1+pow(2,1/12)/7);
             int ig = sizeFFT*fg/frequency;
             int id = sizeFFT*fd/frequency;
             for (int j=ig;j<id+1;j++) {

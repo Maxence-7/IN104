@@ -95,8 +95,8 @@ struct listeNotes* getNotes(char* fichieraudio, unsigned int* frequenceData) {
 
     for(int i=0;i<taille;i++) {
         note[i-dataProcessed]=data[i];
-        if (data[i]!=0 && i-dataProcessed > 15000) {
-            if (dataCorrel[i]>dataCorrelMax*0.375) {
+        if (data[i]!=0 && i-dataProcessed > 12000) {
+            if (dataCorrel[i]>dataCorrelMax*0.100) {
                 //printf("Nouvelle note %d\n", i);
                 liste=addNotes(note,i-dataProcessed,liste);
                 if (dataProcessed==0) {
@@ -116,13 +116,13 @@ struct listeNotes* getNotes(char* fichieraudio, unsigned int* frequenceData) {
 
     free(data);
     free(dataCorrel);
-    printf("All good\n");
+    //printf("All good\n");
     *frequenceData=frequency;
     return liste->first;
 }
 
 void freeListe(struct listeNotes* listeFinal) {
-    printf("Début libération mémoire\n");
+    //printf("Début libération mémoire\n");
     listeFinal=listeFinal->first;
     while (listeFinal != NULL) {
         free(listeFinal->note);
@@ -130,7 +130,7 @@ void freeListe(struct listeNotes* listeFinal) {
         free(listeFinal);
         listeFinal=tmp;
     }
-    printf("Fin libération mémoire\n");
+    //printf("Fin libération mémoire\n");
 }
 
 void writeNotesInFile(char* src,char* dst) {
@@ -146,10 +146,10 @@ void writeNotesInFile(char* src,char* dst) {
     }
     //fprintf(dat,"%d\n",N);
     listeFinal=listeFirst;
-    printf("BEGIN ANALYSIS\n---\n");
+    //printf("BEGIN ANALYSIS\n---\n");
     int c = 1;
     while (listeFinal != NULL) {
-        printf("Analyse note %d\n",c);
+        //printf("Analyse note %d\n",c);
         int* freq = getFreq(listeFinal->note,frequencyData,listeFinal->tailleNote,&nbFreq);
         int time = 1000*listeFinal->tailleNote/(2.0*frequencyData);
         fprintf(dat,"%d ",time);
@@ -160,7 +160,7 @@ void writeNotesInFile(char* src,char* dst) {
         }
         fprintf(dat,"S\n");
         listeFinal = listeFinal->next;
-        printf("---\n");
+        //printf("---\n");
         c++;
     }
     freeListe(listeFirst);
