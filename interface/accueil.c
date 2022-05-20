@@ -97,8 +97,8 @@ char* initAccueil() {
                     if(SDL_PointInRect(&p,&(list_audios_box[i]))) {
                         SDL_DestroyRenderer(renderer);
                         SDL_DestroyWindow(window);
-                       /* free(list_audios);
-                        free(list_audios_box);*/
+                        free(list_audios);
+                        free(list_audios_box);
                         return list_audios[i];
                     }
                 }
@@ -106,9 +106,9 @@ char* initAccueil() {
         }
         SDL_Delay(20);
     }
-    //SDL_DestroyRenderer(renderer);
-    //SDL_DestroyWindow(window);
-    //free(list_audios);
-    //free(list_audios_box);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    free(list_audios);
+    free(list_audios_box);
     return ".";
 }

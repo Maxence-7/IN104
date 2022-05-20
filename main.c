@@ -57,6 +57,5 @@ Quit:
         SDL_DestroyWindow(window);
 Quit2:
     SDL_Quit();
-    free(audioname);
     return 0;
 }
