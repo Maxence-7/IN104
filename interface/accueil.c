@@ -82,7 +82,6 @@ char* initAccueil() {
     
     SDL_RenderPresent(renderer);
 
-
     SDL_Event event;
     SDL_bool quit = SDL_FALSE;
     

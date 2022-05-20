@@ -8,6 +8,7 @@
 #include "interface/convert_frequence.h"
 #include "interface/audio.h"
 #include "analyse/getNotes.h"
+#include "analyse/getAudioFile.h"
 
 #define fichierTampon "notes.dat"
 
@@ -18,43 +19,15 @@ int main(int argc, char *argv[]) {
     }
 
     char* audioname = malloc(sizeof(char*));
-    audioname=initAccueil();
+    audioname = initAccueil();
     
     if(!strcmp(audioname,".")) {
           goto Quit2;
     }
 
-    printf("%s",audioname);
+    audioname=getFilePathWithName(audioname);
 
-    char* audiopath = malloc(sizeof(char*));
-    audiopath="audios/";
-    
-    char * final_audio_name = (char *) malloc(1 + strlen(audioname)+ strlen(audiopath) );
-    strcpy(final_audio_name, audiopath);
-    strcat(final_audio_name, audioname);
-
-    printf(":= %s \n", final_audio_name);
-
-    SDL_Color noir = {0, 0, 0, 0};
-
-    /*if(argc<2) {
-        printf("Merci de saisir un fichier audio");
-        return 0;
-    }*/
-   // char* audioname = argv[1];
-
-    
-    //audioname="audios/gamme_mono.wav";
-    //audioname="audios/Laputa.wav";
-    //audioname="audios/vivaldi_spring_mono.wav";
-
-   // printf("coucou");
-   // strcat(audiopath, audioname);
-
-    audioname=final_audio_name;
-
-    printf("bulbizarre : %s\n", audioname);
-
+    writeNotesInFile(audioname,fichierTampon);
 
     SDL_Window *window = NULL;
     SDL_Renderer *renderer = NULL;
@@ -65,12 +38,11 @@ int main(int argc, char *argv[]) {
         printf("Erreur lors de l'initialisation de la librairie SDL");
         goto Quit;
     }
-
+    
     //Dessin du clavier de piano; il y a 52 touches blanches
+    SDL_Color noir = {0, 0, 0, 0};
     SDL_Rect *touches = malloc(88 * sizeof(SDL_Rect));
     touches = initKeyboard(renderer, noir, touches);
-
-    writeNotesInFile(audioname,fichierTampon);
 
     playMusic(renderer, touches, fichierTampon, audioname);
 
@@ -85,5 +57,6 @@ Quit:
         SDL_DestroyWindow(window);
 Quit2:
     SDL_Quit();
+    free(audioname);
     return 0;
 }
