@@ -36,6 +36,7 @@ char* initAccueil() {
     if(r==1) {
         printf("Erreur lors de l'initialisation de l'accueil");
     }
+    //Chargement des fontes pour l'écriture de texte
     TTF_Init();
 
     TTF_Font *font = TTF_OpenFont("./fonts/LiberationMono-Regular.ttf", 24);
@@ -43,6 +44,8 @@ char* initAccueil() {
         fprintf(stderr, "error: font not found\n");
         exit(EXIT_FAILURE);
     }
+
+    //Lecture du dossier contenant les audios, puis affichage
     struct dirent *dir;
     DIR *d = opendir("./audios/");
 
@@ -82,6 +85,8 @@ char* initAccueil() {
     
     SDL_RenderPresent(renderer);
 
+
+    //Gestion des évènements utilisateur, interaction avec les boutons des audios
     SDL_Event event;
     SDL_bool quit = SDL_FALSE;
     

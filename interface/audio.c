@@ -8,7 +8,7 @@
 #include "convert_frequence.h"
 
 int loadAudio(char* filename, Uint8** pwavBuffer, SDL_AudioDeviceID* pdeviceId) {
-
+    //Chargement d'un audio via SDL
     SDL_AudioSpec wavSpec;
     Uint32 wavLength;
     Uint8 *wavBuffer;
@@ -44,6 +44,7 @@ void playMusic(SDL_Renderer *renderer, SDL_Rect* touches, char* filename, char* 
         return;
     }
 
+    //Chargement des notes du morceau
     int nb_notes;
     fscanf(morceau, "%d", &nb_notes);
 
@@ -53,19 +54,16 @@ void playMusic(SDL_Renderer *renderer, SDL_Rect* touches, char* filename, char* 
 
     SDL_PauseAudioDevice(deviceId, 0);
     
+    //Lecture du morceau
     int i = 0;
     int duration;
     char freq[5];
     while(!feof(morceau)&& i<250) {
         fscanf(morceau, "%d",&duration);
-        //printf("Durée : %d\n", duration);
 
         while(!feof(morceau) && strcmp(freq,"S") != 0) {
             fscanf(morceau, "%s", freq);
             if(strcmp(freq,"S")!=0) {
-                //printf("%s\n",freqs);
-                //printf("%d,", atoi(freqs));
-
                 int n = getPianoKeyNumber(atoi(freq));
                 setTouchColor(renderer, touches, n, rouge);
             }

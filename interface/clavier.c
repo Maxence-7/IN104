@@ -103,6 +103,8 @@ SDL_Rect* initKeyboard(SDL_Renderer *renderer, SDL_Color colorTouch, SDL_Rect *t
     SDL_Rect fond = {0, HEIGHT-longueur_touche_blanche,WIDTH,longueur_touche_blanche};
     SDL_RenderFillRect(renderer, &fond);
 
+    
+    //Coloriage des touches blanches
     int current_x = 0;
     setWindowColor(renderer, colorTouch);
 
@@ -114,6 +116,8 @@ SDL_Rect* initKeyboard(SDL_Renderer *renderer, SDL_Color colorTouch, SDL_Rect *t
             current_x+=largeur_touche_blanche;
         }
     }
+
+    //Coloriage des touches noires
     current_x = 0;
 
     for(int i = 0; i<nb_touches; i++) {
