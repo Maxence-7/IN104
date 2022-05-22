@@ -34,3 +34,8 @@ $ ./compilation.sh
 
 * Sam Gadoin
 * Maxence Leguéry
+
+# Bug connus
+
+* Retard de l'affichage des notes
+* Le 1er fichier de la liste d'audio provoque un "segmentation fault"

@@ -25,7 +25,9 @@ struct wavfile //definit la structure de l entete d un wave
 };
 
 double* getData(char* fichieraudio, unsigned long* sizeData, unsigned int* frequenceData);
-int* getFreq(double* data,unsigned int frequency,unsigned int tailleNote,unsigned int* nbFreq);
+int getFreq2(double* data,unsigned int frequency,unsigned int tailleNote);
+double moyenne(double* data,int sizeFFT);
+int* getFreq(double* data,unsigned int frequency,unsigned int tailleNote, unsigned int* nbFreq);
 
 
 #endif
