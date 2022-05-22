@@ -40,6 +40,11 @@ struct listeNotes* getNotes(char* fichieraudio, unsigned int* frequenceData) {
     double* data = getData(fichieraudio, &taille, &frequency);
 
     double* dataCorrel = malloc(taille*sizeof(double));
+    if (dataCorrel == NULL) {
+        printf("Problème allocation mémoire : dataCorrel");
+        free(dataCorrel);
+        return NULL;
+    }
 
     for (int i=2;i<taille;i+=2) {
         dataCorrel[i]=abs(abs(data[i])-abs(data[i-2]));
@@ -74,6 +79,11 @@ struct listeNotes* getNotes(char* fichieraudio, unsigned int* frequenceData) {
 
     //Ecriture des données dans un fichier pour visualisation avec Python (plot.py)
     FILE *dat=fopen("dataCorrel.dat","w");
+    if ( dat == NULL ) {
+        printf("\nProblème lors de l'ouverture du fichier\n");
+        fclose(dat);
+        exit(0);
+    }
     for (int i=2; i<taille; i+=2) {
         fprintf(dat,"%lf\n", dataCorrel[i]);
     }
@@ -87,6 +97,11 @@ struct listeNotes* getNotes(char* fichieraudio, unsigned int* frequenceData) {
     }
 
     double* note = malloc(taille*sizeof(double));
+    if (note == NULL) {
+        printf("Problème allocation mémoire : note");
+        free(note);
+        return NULL;
+    }
     for (int j=0;j<taille;j++) { note[j]=0; }
     struct listeNotes* liste = malloc(sizeof(struct listeNotes));
     int dataProcessed=0;
@@ -103,6 +118,11 @@ struct listeNotes* getNotes(char* fichieraudio, unsigned int* frequenceData) {
                     liste->first=liste;
                 }
                 note = malloc(taille*sizeof(double));
+                if (note == NULL) {
+                    printf("Problème allocation mémoire : note");
+                    free(note);
+                    return NULL;
+                }
                 for (int j=0;j<taille;j++) { note[j]=0; }
                 dataProcessed=i;
             }
@@ -136,7 +156,12 @@ void freeListe(struct listeNotes* listeFinal) {
 void writeNotesInFile(char* src,char* dst) {
     unsigned int frequencyData;
     unsigned int nbFreq;
-    FILE *dat=fopen(dst,"w"); 
+    FILE *dat=fopen(dst,"w");
+    if ( dat == NULL ) {
+        printf("\nProblème lors de l'ouverture du fichier\n");
+        fclose(dat);
+        exit(0);
+    }
     struct listeNotes* listeFinal = getNotes(src,&frequencyData);
     struct listeNotes* listeFirst = listeFinal->first;
     int N=0;

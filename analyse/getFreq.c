@@ -149,6 +149,11 @@ int* getFreq(double* data,unsigned int frequency,unsigned int tailleNote, unsign
     int N = 3; // Nombre maximal de note dans l'accord
     int k=0;
     int* tabFreq = malloc(N*sizeof(int));
+    if (tabFreq == NULL) {
+        printf("Problème allocation mémoire : tableau fréquence");
+        free(tabFreq);
+        return NULL;
+    }
     double moy = moyenne(data,sizeFFT);
     double moyPrev = moyenne(data,sizeFFT);
     double amp = 1;

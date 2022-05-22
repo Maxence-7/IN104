@@ -50,7 +50,17 @@ char* initAccueil() {
     DIR *d = opendir("./audios/");
 
     char** list_audios = malloc(sizeof(char*));
+    if (list_audios == NULL) {
+        printf("Problème allocation mémoire : list_audios");
+        free(list_audios);
+        return NULL;
+    }
     SDL_Rect* list_audios_box = malloc(sizeof(SDL_Rect));
+    if (list_audios_box == NULL) {
+        printf("Problème allocation mémoire : list_audios_box");
+        free(list_audios_box);
+        return NULL;
+    }
     int nb_audios=0;
 
     if (d) {
