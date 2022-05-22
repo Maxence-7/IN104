@@ -19,9 +19,9 @@ int main(int argc, char *argv[]) {
     }
 
     char* audioname = malloc(sizeof(char*));
-    audioname = initAccueil();
+    initAccueil(&audioname);
     
-    if(!strcmp(audioname,".")) {
+    if(!strcmp(audioname,".") || audioname==NULL) {
           goto Quit2;
     }
 

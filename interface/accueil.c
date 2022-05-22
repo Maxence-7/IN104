@@ -28,7 +28,7 @@ int initSDLAccueil(SDL_Window **window, SDL_Renderer **renderer) {
 }
 
 
-char* initAccueil() {
+void initAccueil(char** audioname) {
     SDL_Window *window = NULL;
     SDL_Renderer *renderer = NULL;
 	
@@ -53,13 +53,13 @@ char* initAccueil() {
     if (list_audios == NULL) {
         printf("Problème allocation mémoire : list_audios");
         free(list_audios);
-        return NULL;
+        return;
     }
     SDL_Rect* list_audios_box = malloc(sizeof(SDL_Rect));
     if (list_audios_box == NULL) {
         printf("Problème allocation mémoire : list_audios_box");
         free(list_audios_box);
-        return NULL;
+        return;
     }
     int nb_audios=0;
 
@@ -110,11 +110,12 @@ char* initAccueil() {
                 SDL_Point p = {event.button.x,event.button.y};
                 for(int i = 0; i<nb_audios;i++) {
                     if(SDL_PointInRect(&p,&(list_audios_box[i]))) {
+                        *audioname=list_audios[i];
                         SDL_DestroyRenderer(renderer);
                         SDL_DestroyWindow(window);
                         free(list_audios);
                         free(list_audios_box);
-                        return list_audios[i];
+                        return;
                     }
                 }
            }
@@ -125,5 +126,6 @@ char* initAccueil() {
     SDL_DestroyWindow(window);
     free(list_audios);
     free(list_audios_box);
-    return ".";
+    *audioname=".";
+    return;
 }
